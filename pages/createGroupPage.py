@@ -31,7 +31,7 @@ class CreateGroupPage:
 
     def enter_name_user(self,name_contact):
         print("Enter name contact")
-        name_user = self.driver.find_element_by_xpath(get_search_name_user_xpath())
+        name_user = self.driver.find_element_by_xpath(get_group_name_xpath())
         name_user.send_keys(name_contact)
 
     def click_invite_button(self):
