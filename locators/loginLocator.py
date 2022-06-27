@@ -30,12 +30,20 @@ def get_login_btn_xpath():
     return "/html/body/div/div[1]/div/div[1]/div/div[2]/div/div/div/div[2]/button"
 
 
-def get_opt_input_xpath():
+def get_otp_input_xpath():
     return "/html/body/div/div/div[2]/div/div/div[3]/div[1]/div[1]/input"
+
+
+def get_re_otp_input_xpath():
+    return "/html/body/div/div/div[2]/div/div/div[3]/div[2]/div[1]/input"
 
 
 def get_pin_input_xpath():
     return "/html/body/div/div/div[2]/div/div/div[3]/div/div[1]/div[1]/input"
+
+
+def get_pin_input_re_xpath():
+    return "/html/body/div/div/div[2]/div/div/div[3]/div[1]/div[2]/div[1]/input"
 
 
 def get_not_account():
@@ -53,5 +61,22 @@ def get_accountId_helper_text_id():
 def get_password_helper_text_id():
     return "password-helper-text"
 
+
 def get_accept_button_id():
     return "platforms-halo"
+
+
+def get_save_button_xpath():
+    return "/html/body/div/div/div[2]/div/div/div[3]/div[2]/button/div"
+
+
+def get_resend_SMS_button_id():
+    return "phone-verify-form-button-request-sms"
+
+
+def get_enter_name_Anony_id():
+    return "phone-login-form-input-phone"
+
+
+def get_continue_button_id():
+    return "phone-login-form-button-ok"
