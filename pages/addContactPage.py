@@ -63,7 +63,7 @@ class AddContactPage:
     def click_wait_message_button(self):
         print("Click wait message button")
         # wait_message = self.driver.find_element_by_xpath(get_wait_message_button_xpath())
-        wait_message = WebDriverWait(self.driver, 90).until(EC.presence_of_element_located((get_wait_message_button_xpath())))
+        wait_message = WebDriverWait(self.driver, 90).until(EC.presence_of_element_located((By.XPATH,get_wait_message_button_xpath())))
         wait_message.click()
 
     def click_agree_button(self):
