@@ -1,3 +1,4 @@
+# Khanh
 import pytest
 import unittest
 import time
@@ -45,6 +46,12 @@ class LoginTest(unittest.TestCase):
                 self.login_obj.click_continue()
                 self.login_obj.enter_pin(pin)
                 self.login_obj.click_accept_button()
+                # try:
+                #     self.login_obj.enter_pin(pin)
+                #     self.login_obj.re_enter_pin(pin)
+                #     self.login_obj.click_save_button()
+                # except Exception:
+                #     self.login_obj.click_accept_button()
 
                 time.sleep(1)
                 assert self.driver.current_url == self.url
@@ -62,7 +69,6 @@ class LoginTest(unittest.TestCase):
                 logout.click_avatar()
             except Exception as err:
                 print("Not avatar error", err)
-                time.sleep(1)
                 logout.click_avatar_not_img()
 
             logout.click_logout()

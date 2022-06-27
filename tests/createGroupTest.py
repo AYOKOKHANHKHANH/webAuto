@@ -7,6 +7,7 @@ from pages.createGroupPage import CreateGroupPage
 from utils.driversManages import chrome_driver_init
 from utils.driversManages import get_driver
 from utils.infoLogin import get_url_web
+from selenium.common.exceptions import ElementClickInterceptedException
 
 
 @pytest.mark.usefixtures("driver_class")
@@ -20,6 +21,7 @@ class CreateGroup(unittest.TestCase):
         self.url = get_url_web()
         self.driver.get(self.url)
         self.login_obj = LoginPage(self.driver)
+        self.create_group = CreateGroupPage(self.driver)
 
         envConfig: EnvConfig = EnvConfig.getInstance()
         self.user_name = envConfig.info.user_name
@@ -28,16 +30,18 @@ class CreateGroup(unittest.TestCase):
         self.name_contact = envConfig.info.name_contact
         self.name_group = envConfig.info.name_group
 
-    # def tearDown(self):
-    #     self.driver.quit()
+    def tearDown(self):
+        self.driver.quit()
 
-    def login_event(self, username, pwd, pin=None):
+    def login_event(self):
         try:
             self.login_obj.click_login_with_halo_acc()
 
             # Wait load page
             time.sleep(1)
-
+            username = self.user_name
+            pwd = self.pwd
+            pin = self.pin
             self.login_obj.enter_username(username)
             self.login_obj.enter_pwd(pwd)
             self.login_obj.click_login()
@@ -54,52 +58,77 @@ class CreateGroup(unittest.TestCase):
         except Exception as err:
             print("Login unsuccessfully", err)
 
-    def login(self):
-        username = self.user_name
-        pwd = self.pwd
-        pin = self.pin
-        name_contact = self.name_contact
-        name_group = self.name_group
-        self.login_event(username,pwd,pin)
-
-    def test_create_group(self):
-        self.login()
-        name_group = self.name_group
-        create_group = CreateGroupPage(self.driver)
-        create_group.click_group_button()
-        create_group.click_add_channel_button()
-        create_group.enter_name_group(name_group)
-        # create_group.click_close_button()
-        create_group.click_ok_button()
-        time.sleep(1)
-        create_group.click_close_button()
-
+    # def test_create_group(self):
+    #     self.login_event()
+    #     print(self.name_group)
+    #
+    #     self.create_group.click_group_button()
+    #     self.create_group.click_create_group_button()
+    #     self.create_group.enter_name_group(self.name_group)
+    #     # create_group.click_close_button()
+    #     self.create_group.click_ok_button()
+    #     self.create_group.click_invite_button()
+    #     self.create_group.click_close_button()
+    #
+    #     list_group = self.create_group.get_list_group()
+    #     assert list_group[0] == self.name_group
+    #
     def test_del_group(self):
-        self.login()
-        del_group = CreateGroupPage(self.driver)
-        del_group.click_group_button()
-        del_group.click_option_button()
-        time.sleep(1)
-        del_group.click_del_group_button()
-        del_group.click_ok_button()
-        # del_group.click_close_button()
+        self.login_event()
+        self.create_group.click_group_button()
+        i = 1
+        try:
+            self.create_group.click_option_button()
+            self.create_group.click_del_group_button()
+            self.create_group.click_ok_button()
+            # while i < (len(self.create_group.get_list_group())):
+            #     self.create_group.click_option_button()
+            #     self.create_group.click_del_group_button()
+            #     self.create_group.click_ok_button()
+            #     i += 1
 
-    def test_on_off_noti(self):
-        self.login()
-        on_off_noti = CreateGroupPage(self.driver)
-        on_off_noti.click_group_button()
-        on_off_noti.click_option_button()
-        on_off_noti.click_on_off_noti_button()
-        on_off_noti.click_ok_button()
-        # on_off_noti.click_close_button()
+        except Exception as e:
+            # while i < (len(self.create_group.get_list_group())):
+            #     self.create_group.click_option_button()
+            #     self.create_group.click_del_group_button()
+            #     self.create_group.click_ok_button()
+            #     i += 1
+            print(e)
 
-    def test_add_friend_to_group(self):
-        self.login()
-        name_contact = self.name_contact
-        add_friend_to_group = CreateGroupPage(self.driver)
-        add_friend_to_group.click_group_button()
-        add_friend_to_group.click_option_button()
-        add_friend_to_group.click_add_friend_to_group_button()
-        # add_friend_to_group.enter_name_user(name_contact)
-        add_friend_to_group.click_invite_button()
-        add_friend_to_group.click_close_button()
+    #
+    #     # self.create_group.click_close_button()
+    #
+    # def test_on_off_noti(self):
+    #     self.login_event()
+    #     self.create_group.click_group_button()
+    #     try:
+    #         self.create_group.click_option_button()
+    #
+    #         try:
+    #             self.create_group.click_off_noti_button()
+    #         except Exception as r:
+    #             self.create_group.click_on_noti_button()
+    #         self.create_group.click_ok_button()
+    #         # print(self.create_group.get_text_on_off_noti_button())
+    #     except Exception as e:
+    #         print(e)
+    #     # self.create_group.click_close_button()
+
+    # def test_add_friend_to_group(self):
+    #     self.login_event()
+    #
+    #     self.create_group.click_group_button()
+    #     print(self.name_contact)
+    #     try:
+    #         self.create_group.click_option_button()
+    #
+    #         self.create_group.click_add_friend_to_group_button()
+    #
+    #         self.create_group.enter_name_user(self.name_contact)
+    #         self.create_group.click_invite_button()
+    #
+    #     except Exception as s:
+    #         print(s)
+    #
+    #     assert self.create_group.click_invite_button() == None
+    #         # self.create_group.click_close_button()
