@@ -1,4 +1,5 @@
 from locators.chatLocator import *
+from selenium.webdriver.common.by import By
 
 
 class ChatPage:
@@ -51,6 +52,14 @@ class ChatPage:
         emoji_button.click()
 
     def get_text_message(self):
+        list_message_receive = []
         print("get text message")
-        text_message = self.driver.find_element_by_class_name(get_text_message()).text
-        return text_message
+        text_message_receive = self.driver.find_elements(By.CSS_SELECTOR, get_text_message())
+        for elt in text_message_receive:
+            list_message_receive.append(elt.text)
+        return list_message_receive
+
+    def click_user_receive(self):
+        print("Click user receive")
+        user_receive = self.driver.find_element_by_xpath(get_receive_user_click_xpath())
+        user_receive.click()
