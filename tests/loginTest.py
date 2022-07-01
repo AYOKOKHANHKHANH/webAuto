@@ -1,10 +1,9 @@
 # Khanh
 import pytest
 import unittest
-import time
 from utils.infoLogin import get_url_web
-from pages.loginPage import LoginPage
-from pages.logoutPage import LogoutPage
+from pages.LoginPage.loginPage import LoginPage
+from pages.LoginPage.logoutPage import LogoutPage
 from utils.driversManages import get_driver
 from config.envConfig import EnvConfig
 from utils.driversManages import chrome_driver_init
@@ -36,7 +35,6 @@ class LoginTest(unittest.TestCase):
             self.login_obj.click_login_with_halo_acc()
 
             # Wait load page
-            time.sleep(1)
 
             self.login_obj.enter_username(username)
             self.login_obj.enter_pwd(pwd)
@@ -53,7 +51,7 @@ class LoginTest(unittest.TestCase):
                 # except Exception:
                 #     self.login_obj.click_accept_button()
 
-                time.sleep(1)
+                self.driver.implicitly_wait(5)
                 assert self.driver.current_url == self.url
 
                 # logout
@@ -89,7 +87,7 @@ class LoginTest(unittest.TestCase):
         self.login_event(username=username, pwd=pwd, pin=pin)
 
         # wait login
-        time.sleep(1)
+        self.driver.implicitly_wait(5)
 
         # Expect login successfully
         assert self.driver.current_url == self.url + 'welcome'
@@ -105,7 +103,7 @@ class LoginTest(unittest.TestCase):
 
         self.login_event(username=username, pwd=pwd)
         # wait login
-        time.sleep(1)
+        self.driver.implicitly_wait(10)
 
         # Expect login unsuccessfully
         assert self.driver.current_url != self.url
@@ -122,8 +120,8 @@ class LoginTest(unittest.TestCase):
         self.login_event(username=username, pwd=pwd)
 
         # wait login
-        time.sleep(1)
 
+        self.driver.implicitly_wait(5)
         # Expect login unsuccessfully
         assert self.driver.current_url != self.url
 
@@ -139,7 +137,8 @@ class LoginTest(unittest.TestCase):
         self.login_event(username=username, pwd=pwd)
 
         # wait login
-        time.sleep(1)
+
+        self.driver.implicitly_wait(5)
 
         # Expect login unsuccessfully
         assert self.driver.current_url != self.url
@@ -156,8 +155,8 @@ class LoginTest(unittest.TestCase):
         self.login_event(username=username, pwd=pwd)
 
         # wait login
-        time.sleep(1)
 
+        self.driver.implicitly_wait(5)
         # Expect login unsuccessfully
         assert self.driver.current_url != self.url
 
@@ -173,8 +172,8 @@ class LoginTest(unittest.TestCase):
         self.login_event(username=username, pwd=pwd)
 
         # wait login
-        time.sleep(1)
 
+        self.driver.implicitly_wait(5)
         # Expect login unsuccessfully
         assert self.driver.current_url != self.url
 

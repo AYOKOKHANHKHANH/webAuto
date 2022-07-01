@@ -1,14 +1,12 @@
-from pages.loginPage import LoginPage
-from pages.logoutPage import LogoutPage
+from pages.LoginPage.loginPage import LoginPage
+from pages.LoginPage.logoutPage import LogoutPage
 from utils.driversManages import chrome_driver_init
 import unittest
 import time
 from utils.infoLogin import get_info_login_anonymous
 from utils.driversManages import get_driver
 from utils.infoLogin import get_url_web
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from locators.loginLocator import *
+
 
 
 class LoginAnonymousTest(unittest.TestCase):
@@ -64,56 +62,59 @@ class LoginAnonymousTest(unittest.TestCase):
         '''
             number_phone = True
             otp = True
+            return: login successfully
         '''
-        phone_number = self.phone_number
-        otp = self.otp
-        self.login_event(phone_number,otp)
-        time.sleep(3)
+        self.login_event(phone_number = self.phone_number,otp = self.otp)
 
+        time.sleep(2)
         assert self.driver.current_url == self.url
+
         self.logout_event()
 
-    # def test_loginAnomy_phone_invalid(self):
-    #     '''
-    #         phone_number = False
-    #     '''
-    #     phone_number = '1234'
-    #     otp = self.otp
-    #     self.login_event(phone_number,otp)
-    #     time.sleep(1)
-    #
-    #     assert self.login_obj.click_login_anonymous_start_btn() == None
-    #
-    #
-    # def test_loginAnony_phone_empty(self):
-    #     '''
-    #         phone_number = Empty
-    #     '''
-    #     phone_number = ''
-    #     otp = self.otp
-    #     self.login_event(phone_number, otp)
-    #     time.sleep(1)
-    #     assert self.login_obj.click_login_anonymous_start_btn() == None
-    #
-    # def test_loginAnony_otp_False(self):
-    #     '''
-    #         otp = False
-    #     '''
-    #     phone_number = self.phone_number
-    #     otp = '111111'
-    #     self.login_event(phone_number,otp)
-    #     time.sleep(1)
-    #     assert self.driver.current_url != self.url
-    #
-    # def test_loginAnony_otp_empty(self):
-    #     '''
-    #         otp = Empty
-    #     '''
-    #     phone_number = self.phone_number
-    #     otp = ''
-    #     self.login_event(phone_number,otp)
-    #     time.sleep(1)
-    #     assert self.driver.current_url != self.url
+    def test_loginAnomy_phone_invalid(self):
+        '''
+            phone_number = False
+            return: login unsuccessfully
+        '''
+        phone_number = '1234'
+        otp = self.otp
+        self.login_event(phone_number,otp)
+
+        assert self.login_obj.click_login_anonymous_start_btn() == None
+
+
+    def test_loginAnony_phone_empty(self):
+        '''
+            phone_number = Empty
+            return: login unsuccessfully
+        '''
+        phone_number = ''
+        otp = self.otp
+        self.login_event(phone_number, otp)
+
+        assert self.login_obj.click_login_anonymous_start_btn() == None
+
+    def test_loginAnony_otp_False(self):
+        '''
+            otp = False
+            return: login unsuccessfully
+        '''
+        phone_number = self.phone_number
+        otp = '111111'
+        self.login_event(phone_number,otp)
+
+        assert self.driver.current_url != self.url
+
+    def test_loginAnony_otp_empty(self):
+        '''
+            otp = Empty
+            return: login unsuccessfully
+        '''
+        phone_number = self.phone_number
+        otp = ''
+        self.login_event(phone_number,otp)
+
+        assert self.driver.current_url != self.url
 
 
     def tearDown(self) -> None:

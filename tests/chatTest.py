@@ -4,8 +4,8 @@ import unittest
 from utils.driversManages import get_driver
 from utils.driversManages import chrome_driver_init
 from utils.infoLogin import get_url_web
-from pages.loginPage import LoginPage
-from pages.chatPage import ChatPage
+from pages.LoginPage.loginPage import LoginPage
+from pages.ChatPage.chatPage import ChatPage
 from config.envConfig import EnvConfig
 
 
@@ -50,7 +50,7 @@ class ChatTest(unittest.TestCase):
                 self.login_obj.enter_pin(pin)
                 self.login_obj.click_accept_button()
 
-                time.sleep(1)
+                self.driver.implicitly_wait(5)
                 assert self.driver.current_url == self.url
 
 
@@ -59,10 +59,7 @@ class ChatTest(unittest.TestCase):
 
     def test_chat(self):
         # Login success
-        username = self.user_name
-        pwd = self.pwd
-        pin = self.pin
-        self.login_event(username=username, pwd=pwd, pin=pin)
+        self.login_event(username=self.user_name, pwd=self.pwd, pin=self.pin)
 
         # Send text for friend
         chat = ChatPage(self.driver)
@@ -100,13 +97,15 @@ class ChatTest(unittest.TestCase):
         check_receive = ChatPage(self.driver)
         check_receive.click_chat_button()
         check_receive.click_user_receive()
+        check_receive.click_user_to_chat_button(self.name_contact)
 
-        time.sleep(2)
+        # time.sleep(2)
         list_message_receive = check_receive.get_text_message()
         list_message_receive.reverse()
         list_result = []
         for i in range (len(self.list_message)):
             list_result.append(list_message_receive[i])
         list_result.reverse()
-
+        print(list_result)
+        print((self.list_message))
         assert list_result == self.list_message
