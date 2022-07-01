@@ -40,4 +40,7 @@ def get_list_group_class():
 def get_X_button_class():
     return "/html/body/div[2]/div/div/div/div/div[2]/div[1]/svg"
 
+def get_first_group_in_list_group():
+    return "/html/body/div/div/div[2]/div[1]/div[2]/div[2]/div[1]/div/div/a/div[2]/div"
+
 

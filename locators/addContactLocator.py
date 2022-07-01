@@ -37,3 +37,14 @@ def get_agree_button_css():
 
 def get_not_agree_button_css():
     return ".flex.justify-end.space-x-1 w-5 .h-5.text-red-primary"
+
+def get_channel_header_button_info_icon_id():
+    return "channel-header-button-info-icon"
+
+def get_user_in_list_friend_css():
+    # return ".overflow-auto .opacity-100 .my-0.5 .transition .justify-center .truncate"
+    # return ".text-sm.md:text-base.font-semibold.truncate"
+    return ".justify-center .truncate"
+
+def get_first_user_name_in_list_fr():
+    return ".justify-center .truncate"
