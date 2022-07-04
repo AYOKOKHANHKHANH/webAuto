@@ -104,9 +104,9 @@ class ChatTest(unittest.TestCase):
         # Check message
         check_receive = ChatPage(self.driver)
         check_receive.click_chat_button()
-        time.sleep(5)
+        time.sleep(0.5)
 
-        print(list_message_receive = check_receive.get_text_message_receive()
+        list_message_receive = check_receive.get_text_message_receive()
         list_message_receive.reverse()
         list_result = []
         for i in range (len(self.list_message)):
